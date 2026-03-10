@@ -1,0 +1,101 @@
+.inicio-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .welcome-section {
+    text-align: center;
+    padding: 3rem 0;
+  }
+  
+  .welcome-section h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+  
+  .lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+  }
+  
+  .info-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+  }
+  
+  .custom-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .custom-list li {
+    padding-left: 30px;
+    position: relative;
+    font-weight: 500;
+  }
+  
+  /* Un pequeño detalle: checkmarks en lugar de puntos */
+  .custom-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+  
+  .bestseller-banner {
+    background: var(--text-main);
+    color: white;
+    margin: 4rem 0;
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .horizontal-list {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    list-style: none;
+    padding: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .info-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary-light);
+  }
+  
+  .info-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    height: 180px;
+    object-fit: cover;
+  }
