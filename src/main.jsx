@@ -5,11 +5,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <SpeedInsights>
+  
   <CartProvider>
   <StrictMode>
     <App />
+    <SpeedInsights />
   </StrictMode>
   </CartProvider>
-  </SpeedInsights>
 )
