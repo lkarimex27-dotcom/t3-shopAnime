@@ -3,9 +3,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { 
   AppBar, Toolbar, Typography, Button, Stack, TextField, 
   InputAdornment, IconButton, Badge, Container, Box, Tooltip,
-  Menu, MenuItem, Avatar 
+  Menu, MenuItem 
 } from '@mui/material';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Icono de cuenta
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -40,8 +41,8 @@ const Header = () => {
       sx={{ 
         background: '#ffffff', 
         color: '#2d3436', 
-        boxShadow: '0 4px 20px rgba(211, 47, 47, 0.15)', // Sombra ajustada
-        borderBottom: '3px solid #D32F2F' // COLOR CORREGIDO: Contraste alto
+        boxShadow: '0 4px 20px rgba(211, 47, 47, 0.15)', 
+        borderBottom: '3px solid #D32F2F' 
       }}
     >
       <Container maxWidth="xl">
@@ -52,7 +53,7 @@ const Header = () => {
             <Box sx={{ 
               width: { xs: 35, md: 45 }, 
               height: { xs: 35, md: 45 }, 
-              bgcolor: '#D32F2F', // COLOR CORREGIDO
+              bgcolor: '#D32F2F', 
               borderRadius: '50%', 
               display: 'flex', 
               justifyContent: 'center', 
@@ -62,7 +63,7 @@ const Header = () => {
             }}>
               <AutoAwesomeIcon sx={{ color: '#fff', fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
             </Box>
-            <Typography variant="h1" sx={{ // h1 para jerarquía SEO/Accesibilidad correcta
+            <Typography variant="h1" sx={{ 
               fontWeight: 900, 
               color: '#1a1a1a', 
               fontFamily: '"Poppins", sans-serif',
@@ -122,14 +123,14 @@ const Header = () => {
             />
           </Box>
 
-          {/* --- ICONOS DE ACCIÓN (SOLUCIÓN Accessible Names) --- */}
+          {/* --- ICONOS DE ACCIÓN --- */}
           <Stack direction="row" spacing={{ xs: 0.5, sm: 1.5 }} alignItems="center">
             
             <Tooltip title="Favoritos">
               <IconButton 
                 component={NavLink} 
                 to="/myfavourites" 
-                aria-label="Ver mis favoritos" // ACCESIBILIDAD 100%
+                aria-label="Ver mis favoritos"
                 sx={{ color: '#D32F2F', display: { xs: 'none', sm: 'flex' } }}
               >
                 <FavoriteIcon />
@@ -140,7 +141,7 @@ const Header = () => {
               <IconButton 
                 component={NavLink} 
                 to="/mybuys" 
-                aria-label="Ver carrito de compras" // ACCESIBILIDAD 100%
+                aria-label="Ver carrito de compras"
                 sx={{ color: '#1a1a1a' }}
               >
                 <Badge badgeContent={2} sx={{ '& .MuiBadge-badge': { backgroundColor: '#D32F2F', color: 'white' } }}>
@@ -149,19 +150,30 @@ const Header = () => {
               </IconButton>
             </Tooltip>
 
+            {/* --- SECCIÓN DE CUENTA (ICONO REEMPLAZADO) --- */}
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Opciones de cuenta">
                 <IconButton 
                   onClick={handleOpenUserMenu} 
-                  aria-label="Abrir menú de usuario" // ACCESIBILIDAD 100%
-                  sx={{ p: 0, ml: 1, border: '2px solid #D32F2F' }}
+                  aria-label="Abrir menú de usuario" 
+                  sx={{ 
+                    p: 0, 
+                    ml: 1, 
+                    color: '#D32F2F', // Color rojo AnimeSekai
+                    transition: '0.3s',
+                    '&:hover': { transform: 'scale(1.1)' }
+                  }}
                 >
-                  <Avatar alt="Usuario Anime" src="/img/avatar-default.webp" /> 
+                  {/* Cambio de Avatar por AccountCircleIcon */}
+                  <AccountCircleIcon sx={{ fontSize: { xs: 35, md: 40 } }} /> 
                 </IconButton>
               </Tooltip>
               <Menu
                 sx={{ mt: '45px' }}
                 anchorEl={anchorElUser}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                keepMounted
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
@@ -173,11 +185,11 @@ const Header = () => {
               </Menu>
             </Box>
 
-            {/* MENÚ MÓVIL (SOLUCIÓN Accessible Name) */}
+            {/* MENÚ MÓVIL */}
             <Box sx={{ display: { xs: 'flex', lg: 'none' } }}>
               <IconButton
                 size="large"
-                aria-label="Abrir menú de navegación" // ACCESIBILIDAD 100%
+                aria-label="Abrir menú de navegación"
                 onClick={handleOpenNavMenu}
                 sx={{ color: '#D32F2F' }}
               >
