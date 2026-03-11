@@ -1,6 +1,6 @@
 import React, { useState, useContext, useMemo } from 'react';
 import { Box, Paper, Typography, Button, Container, Stack, IconButton, Snackbar, Alert } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid'; 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -12,11 +12,12 @@ const Content = () => {
   const { agregarAlCarrito, alternarFavorito, favoritos } = useContext(CartContext);
   const [snackbar, setSnackbar] = useState({ open: false, product: "" });
 
+  // OPTIMIZACIÓN DE PERFORMANCE: Imágenes locales para evitar latencia de Unsplash
   const products = useMemo(() => [
-    { id: 'prod-1', title: "Figuras Scale", price: 450000, img: "https://images.unsplash.com/photo-1625895197185-efcec01cffe0?auto=format&fit=crop&q=75&w=400&format=webp", desc: "Calidad premium 1/7 y 1/8 de tus personajes favoritos." },
-    { id: 'prod-2', title: "Funko Pop!", price: 65000, img: "https://images.unsplash.com/photo-1635696572145-bb90317206ec?auto=format&fit=crop&q=75&w=400&format=webp", desc: "Figuras coleccionables Funko Pop originales." },
-    { id: 'prod-3', title: "Estampado", price: 85000, img: "https://images.unsplash.com/photo-1708589794486-7767e6062c29?auto=format&fit=crop&q=75&w=400&format=webp", desc: "Camisetas anime con diseños exclusivos estampados." },
-    { id: 'prod-4', title: "Mangas", price: 45000, img: "https://images.unsplash.com/photo-1709675577966-6231e5a2ac43?auto=format&fit=crop&q=75&w=400&format=webp", desc: "Mangas importados y ediciones de lujo en español." },
+    { id: 'prod-1', title: "Figuras Scale", price: 450000, img: "/public/img/Figuras Scale.avif", desc: "Calidad premium 1/7 y 1/8 de tus personajes favoritos." },
+    { id: 'prod-2', title: "Funko Pop!", price: 65000, img: "/public/img/Notorious Funko.avif", desc: "Figuras coleccionables Funko Pop originales." },
+    { id: 'prod-3', title: "Estampado", price: 85000, img: "/public/img/estampados.avif", desc: "Camisetas anime con diseños exclusivos estampados." },
+    { id: 'prod-4', title: "Mangas", price: 45000, img: "/public/img/Manga.avif", desc: "Mangas importados y ediciones de lujo en español." },
   ], []);
 
   const handleAddToCart = (producto) => {
@@ -26,7 +27,7 @@ const Content = () => {
 
   return (
     <Box component="main">
-      {/* Hero Section */}
+      {/* Hero Section - Optimizado para LCP */}
       <Box 
         component="section" 
         sx={{ 
@@ -37,28 +38,36 @@ const Content = () => {
       >
         <Box 
           component="img"
-          src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?auto=format&fit=crop&q=60&w=800"
-          alt="Banner Principal Anime Sekai"
+          src="/img/fondo.avif" // Imagen local en formato AVIF para máximo ahorro
+          alt="Banner Principal Mundo Otaku"
           fetchPriority="high" 
           loading="eager" 
-          sx={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', zIndex: 1, filter: 'brightness(0.4)' }}
+          sx={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', zIndex: 1, filter: 'brightness(0.5)' }}
         />
 
         <Container sx={{ zIndex: 2, textAlign: 'center', position: 'relative' }}>
-          <Typography component="p" sx={{ color: '#FF6B6B', fontWeight: 700, mb: 1, letterSpacing: 1.5, textTransform: 'uppercase' }}>
+          <Typography 
+            variant="overline" // Cambio semántico para evitar errores de jerarquía
+            sx={{ color: '#FFD700', fontWeight: 800, mb: 1, letterSpacing: 1.5, display: 'block' }}
+          >
             Coleccionables Anime de otro nivel
           </Typography>
           <Typography 
             variant="h1" 
-            sx={{ fontWeight: 900, color: '#FFD700', fontSize: { xs: '3rem', md: '6rem' }, textShadow: '3px 3px 0px #000', lineHeight: 1.1, mb: 3 }}
+            sx={{ fontWeight: 900, color: '#FFFFFF', fontSize: { xs: '3.5rem', md: '6rem' }, textShadow: '4px 4px 0px #D32F2F', mb: 3 }}
           >
             MUNDO ANIME
           </Typography>
           <Button 
             variant="contained" size="large"
             startIcon={<LocalFireDepartmentIcon />}
-            aria-label="Ver todas las ofertas de anime" // ACCESIBILIDAD: Nombre descriptivo para el botón
-            sx={{ bgcolor: '#FF6B6B', px: 4, py: 2, borderRadius: '50px', fontWeight: 800 }}
+            aria-label="Ver todas las ofertas de anime"
+            sx={{ 
+              bgcolor: '#D32F2F', // COLOR CORREGIDO: Pasa prueba de contraste WCAG
+              color: '#FFFFFF',
+              px: 4, py: 2, borderRadius: '50px', fontWeight: 800, 
+              '&:hover': { bgcolor: '#B71C1C' } 
+            }}
           >
             VER OFERTAS CALIENTES
           </Button>
@@ -77,18 +86,18 @@ const Content = () => {
             return (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.id}>
                 <Paper component="article" elevation={0} sx={{ borderRadius: 4, overflow: 'hidden', border: '1px solid #f0f0f0' }}>
-                  <Box sx={{ position: 'relative', pt: '75%' }}>
+                  <Box sx={{ position: 'relative', pt: '75%', bgcolor: '#f9f9f9' }}>
                     <Box 
                       component="img" 
                       src={item.img} 
-                      alt={`Producto: ${item.title}`} 
+                      alt={item.title} 
                       loading="lazy" 
                       sx={{ position: 'absolute', top: 0, width: '100%', height: '100%', objectFit: 'cover' }} 
                     />
                   </Box>
                   <Box sx={{ p: 3 }}>
                     <Typography variant="h3" sx={{ fontSize: '1.25rem', fontWeight: 800, mb: 1 }}>{item.title}</Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2, minHeight: '40px' }}>{item.desc}</Typography>
+                    <Typography variant="body2" color="text.primary" sx={{ mb: 2, minHeight: '40px' }}>{item.desc}</Typography>
                     
                     <Stack direction="row" spacing={1}>
                       <Button 
@@ -96,19 +105,22 @@ const Content = () => {
                         onClick={() => handleAddToCart(item)} 
                         variant="contained" 
                         startIcon={<ShoppingCartIcon />}
-                        aria-label={`Añadir ${item.title} al carrito de compras`} // ACCESIBILIDAD: Nombre único por producto
-                        sx={{ bgcolor: '#D32F2F', // COLOR CORREGIDO para contraste
-                          borderRadius: 2, 
-                          textTransform: 'none',
-                          '&:hover': { bgcolor: '#B71C1C' }}}
+                        aria-label={`Añadir ${item.title} al carrito`} // ACCESIBILIDAD 100%
+                        sx={{ 
+                          bgcolor: '#D32F2F', // Contraste corregido
+                          color: '#FFFFFF',
+                          borderRadius: 2, textTransform: 'none', 
+                          fontWeight: 700,
+                          '&:hover': { bgcolor: '#B71C1C' }
+                        }}
                       >
                         Añadir
                       </Button>
                       
                       <IconButton 
                         onClick={() => alternarFavorito(item)}
-                        aria-label={esFavorito ? `Quitar ${item.title} de mis favoritos` : `Añadir ${item.title} a mis favoritos`} // ACCESIBILIDAD: Este es el punto clave que te falta
-                        sx={{ border: '1px solid #f0f0f0', color: '#D32F2F' }}
+                        aria-label={esFavorito ? `Quitar ${item.title} de favoritos` : `Añadir ${item.title} a favoritos`}
+                        sx={{ border: '1px solid #D32F2F', color: '#D32F2F' }}
                       >
                         {esFavorito ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
                       </IconButton>
@@ -126,7 +138,7 @@ const Content = () => {
         autoHideDuration={2000} 
         onClose={() => setSnackbar({ ...snackbar, open: false })}
       >
-        <Alert severity="success" variant="filled" sx={{ width: '100%' }}>
+        <Alert severity="success" variant="filled" sx={{ width: '100%', bgcolor: '#D32F2F' }}>
           {snackbar.product} añadido con éxito 📦
         </Alert>
       </Snackbar>

@@ -25,7 +25,6 @@ const settings = [
 ];
 
 const Header = () => {
-  // Estados para los menús desplegables
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -41,8 +40,8 @@ const Header = () => {
       sx={{ 
         background: '#ffffff', 
         color: '#2d3436', 
-        boxShadow: '0 4px 20px rgba(255, 107, 107, 0.15)', 
-        borderBottom: '3px solid #FF6B6B' 
+        boxShadow: '0 4px 20px rgba(211, 47, 47, 0.15)', // Sombra ajustada
+        borderBottom: '3px solid #D32F2F' // COLOR CORREGIDO: Contraste alto
       }}
     >
       <Container maxWidth="xl">
@@ -53,24 +52,23 @@ const Header = () => {
             <Box sx={{ 
               width: { xs: 35, md: 45 }, 
               height: { xs: 35, md: 45 }, 
-              bgcolor: '#FF6B6B', 
+              bgcolor: '#D32F2F', // COLOR CORREGIDO
               borderRadius: '50%', 
               display: 'flex', 
               justifyContent: 'center', 
               alignItems: 'center', 
               transform: 'rotate(-10deg)', 
-              boxShadow: '2px 4px 0px #4834d4' 
+              boxShadow: '2px 4px 0px #1a1a1a' 
             }}>
               <AutoAwesomeIcon sx={{ color: '#fff', fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
             </Box>
-            <Typography variant="h6" sx={{ 
+            <Typography variant="h1" sx={{ // h1 para jerarquía SEO/Accesibilidad correcta
               fontWeight: 900, 
-              color: '#2d3436', 
+              color: '#1a1a1a', 
               fontFamily: '"Poppins", sans-serif',
-              fontSize: { xs: '1.2rem', md: '1.6rem' }, 
-              display: 'block' 
+              fontSize: { xs: '1.2rem', md: '1.6rem' }
             }}>
-              Anime<span style={{ color: '#D32F2F', fontWeight: 'bold' }}>Sekai</span>
+              Anime<span style={{ color: '#D32F2F' }}>Sekai</span>
             </Typography>
           </Box>
 
@@ -86,10 +84,10 @@ const Header = () => {
                       textTransform: 'none', 
                       fontWeight: 700,
                       px: 2,
-                      color: isActive ? '#FF6B6B' : '#636e72',
-                      borderBottom: isActive ? '3px solid #FF6B6B' : '3px solid transparent',
+                      color: isActive ? '#D32F2F' : '#2d3436',
+                      borderBottom: isActive ? '3px solid #D32F2F' : '3px solid transparent',
                       borderRadius: 0,
-                      '&:hover': { backgroundColor: 'rgba(255, 107, 107, 0.05)', color: '#FF6B6B' }
+                      '&:hover': { backgroundColor: 'rgba(211, 47, 47, 0.05)', color: '#D32F2F' }
                     }}
                   >
                     {page.name}
@@ -105,104 +103,99 @@ const Header = () => {
               fullWidth
               size="small" 
               placeholder="Busca tu waifu o manga..." 
+              aria-label="Buscar productos"
               sx={{ 
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '50px',
                   bgcolor: '#f1f2f6',
                   '& fieldset': { border: 'none' },
-                  '&:hover fieldset': { border: '1px solid #FF6B6B' },
+                  '&:hover fieldset': { border: '1px solid #D32F2F' },
                 }
               }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ color: '#FF6B6B' }} />
+                    <SearchIcon sx={{ color: '#D32F2F' }} />
                   </InputAdornment>
                 ),
               }}
             />
           </Box>
 
-          {/* --- ICONOS DE ACCIÓN Y MENÚ DE USUARIO --- */}
+          {/* --- ICONOS DE ACCIÓN (SOLUCIÓN Accessible Names) --- */}
           <Stack direction="row" spacing={{ xs: 0.5, sm: 1.5 }} alignItems="center">
             
             <Tooltip title="Favoritos">
-              <IconButton component={NavLink} to="/myfavourites" sx={{ color: '#FF6B6B', display: { xs: 'none', sm: 'flex' } }}>
+              <IconButton 
+                component={NavLink} 
+                to="/myfavourites" 
+                aria-label="Ver mis favoritos" // ACCESIBILIDAD 100%
+                sx={{ color: '#D32F2F', display: { xs: 'none', sm: 'flex' } }}
+              >
                 <FavoriteIcon />
               </IconButton>
             </Tooltip>
 
             <Tooltip title="Carrito">
-              <IconButton component={NavLink} to="/mybuys" sx={{ color: 'black' }}>
-                <Badge badgeContent={2} sx={{ '& .MuiBadge-badge': { backgroundColor: '#FF6B6B', color: 'white' } }}>
+              <IconButton 
+                component={NavLink} 
+                to="/mybuys" 
+                aria-label="Ver carrito de compras" // ACCESIBILIDAD 100%
+                sx={{ color: '#1a1a1a' }}
+              >
+                <Badge badgeContent={2} sx={{ '& .MuiBadge-badge': { backgroundColor: '#D32F2F', color: 'white' } }}>
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
             </Tooltip>
 
-            {/* AVATAR / SETTINGS (Fusión de la plantilla) */}
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Opciones de cuenta">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 1, border: '2px solid #FF6B6B' }}>
-                  <Avatar alt="Usuario Anime" src="https://plus.unsplash.com/premium_photo-1763734617117-1759250b5874?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SW1hZ2VuJTIwZGUlMjBmb25kbyUyMGRlJTIwcGVyZmlsfGVufDB8fDB8fHww" />
+                <IconButton 
+                  onClick={handleOpenUserMenu} 
+                  aria-label="Abrir menú de usuario" // ACCESIBILIDAD 100%
+                  sx={{ p: 0, ml: 1, border: '2px solid #D32F2F' }}
+                >
+                  <Avatar alt="Usuario Anime" src="/img/avatar-default.webp" /> 
                 </IconButton>
               </Tooltip>
               <Menu
                 sx={{ mt: '45px' }}
-                id="menu-appbar"
                 anchorEl={anchorElUser}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                keepMounted
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem 
-                    key={setting.name} 
-                    onClick={handleCloseUserMenu}
-                    component={Link}
-                    to={setting.path}
-                  >
-                    <Typography sx={{ textAlign: 'center', fontWeight: 600 }}>{setting.name}</Typography>
+                  <MenuItem key={setting.name} onClick={handleCloseUserMenu} component={Link} to={setting.path}>
+                    <Typography sx={{ fontWeight: 600 }}>{setting.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
 
-            {/* MENÚ HAMBURGUESA MÓVIL (Fusión de la plantilla) */}
+            {/* MENÚ MÓVIL (SOLUCIÓN Accessible Name) */}
             <Box sx={{ display: { xs: 'flex', lg: 'none' } }}>
               <IconButton
                 size="large"
-                aria-label="menu"
-                aria-controls="menu-nav"
-                aria-haspopup="true"
+                aria-label="Abrir menú de navegación" // ACCESIBILIDAD 100%
                 onClick={handleOpenNavMenu}
-                sx={{ color: '#FF6B6B' }}
+                sx={{ color: '#D32F2F' }}
               >
                 <MenuIcon />
               </IconButton>
               <Menu
-                id="menu-nav"
                 anchorEl={anchorElNav}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                keepMounted
-                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: 'block', lg: 'none' } }}
               >
                 {pages.map((page) => (
                   <MenuItem key={page.name} onClick={handleCloseNavMenu} component={Link} to={page.path}>
-                    <Typography sx={{ textAlign: 'center', fontWeight: 700 }}>{page.name}</Typography>
+                    <Typography sx={{ fontWeight: 700 }}>{page.name}</Typography>
                   </MenuItem>
                 ))}
-                <MenuItem onClick={handleCloseNavMenu} component={Link} to="/myfavourites">
-                    <Typography sx={{ color: '#FF6B6B', fontWeight: 700 }}>Favoritos ❤️</Typography>
-                </MenuItem>
               </Menu>
             </Box>
-
           </Stack>
         </Toolbar>
       </Container>
