@@ -14,10 +14,10 @@ const Content = () => {
 
   // OPTIMIZACIÓN DE PERFORMANCE: Imágenes locales para evitar latencia de Unsplash
   const products = useMemo(() => [
-    { id: 'prod-1', title: "Figuras Scale", price: 450000, img: "/public/img/Figuras Scale.avif", desc: "Calidad premium 1/7 y 1/8 de tus personajes favoritos." },
-    { id: 'prod-2', title: "Funko Pop!", price: 65000, img: "/public/img/Notorious Funko.avif", desc: "Figuras coleccionables Funko Pop originales." },
-    { id: 'prod-3', title: "Estampado", price: 85000, img: "/public/img/estampados.avif", desc: "Camisetas anime con diseños exclusivos estampados." },
-    { id: 'prod-4', title: "Mangas", price: 45000, img: "/public/img/Manga.avif", desc: "Mangas importados y ediciones de lujo en español." },
+    { id: 'prod-1', title: "Figuras Scale", price: 450000, img: "/img/Figuras Scale.avif", desc: "Calidad premium 1/7 y 1/8 de tus personajes favoritos." },
+    { id: 'prod-2', title: "Funko Pop!", price: 65000, img: "/img/Notorious Funko.avif", desc: "Figuras coleccionables Funko Pop originales." },
+    { id: 'prod-3', title: "Estampado", price: 85000, img: "/img/estampados.avif", desc: "Camisetas anime con diseños exclusivos estampados." },
+    { id: 'prod-4', title: "Mangas", price: 45000, img: "/img/Manga.avif", desc: "Mangas importados y ediciones de lujo en español." },
   ], []);
 
   const handleAddToCart = (producto) => {
