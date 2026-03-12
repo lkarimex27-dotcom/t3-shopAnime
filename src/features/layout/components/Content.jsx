@@ -17,7 +17,7 @@ const Content = () => {
     { id: 'prod-1', title: "Figuras Scale", price: 450000, img: "/img/figuras-scale.avif", desc: "Calidad premium 1/7 y 1/8 de tus personajes favoritos." },
     { id: 'prod-2', title: "Funko Pop!", price: 65000, img: "/img/notorious-funko.avif", desc: "Figuras coleccionables Funko Pop originales." },
     { id: 'prod-3', title: "Estampado", price: 85000, img: "/img/estampados.avif", desc: "Camisetas anime con diseños exclusivos estampados." },
-    { id: 'prod-4', title: "Mangas", price: 45000, img: "/img/mangas.avif", desc: "Mangas importados y ediciones de lujo en español." },
+    { id: 'prod-4', title: "Mangas", price: 45000, img: "/img/manga.avif", desc: "Mangas importados y ediciones de lujo en español." },
   ], []);
 
   const handleAddToCart = (producto) => {

@@ -24,7 +24,15 @@ export const CartProvider = ({ children }) => {
   }, [favoritos]);
 
   const agregarAlCarrito = useCallback((producto) => {
+    // Agregamos un instanceId único (timestamp) para poder borrar items específicos
+    // incluso si el producto es el mismo (mismo ID de base)
     setCarrito((prev) => [...prev, { ...producto, instanceId: Date.now() }]);
+  }, []);
+
+  // --- FUNCIÓN PARA ELIMINAR DEL CARRITO ---
+  const eliminarDelCarrito = useCallback((instanceId) => {
+    // Filtramos el carrito manteniendo solo los objetos cuyo instanceId NO sea el que queremos borrar
+    setCarrito((prev) => prev.filter(item => item.instanceId !== instanceId));
   }, []);
 
   const alternarFavorito = useCallback((producto) => {
@@ -38,7 +46,13 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ carrito, favoritos, agregarAlCarrito, alternarFavorito }}>
+    <CartContext.Provider value={{ 
+      carrito, 
+      favoritos, 
+      agregarAlCarrito, 
+      eliminarDelCarrito, // Exportado para usar en Mybuys.js
+      alternarFavorito 
+    }}>
       {children}
     </CartContext.Provider>
   );

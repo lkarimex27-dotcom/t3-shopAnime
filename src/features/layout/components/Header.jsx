@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react'; // 1. Importamos useContext
 import { Link, NavLink } from 'react-router-dom';
 import { 
   AppBar, Toolbar, Typography, Button, Stack, TextField, 
@@ -6,12 +7,15 @@ import {
   Menu, MenuItem 
 } from '@mui/material';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Icono de cuenta
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'; 
 import MenuIcon from '@mui/icons-material/Menu';
+
+// 2. Importamos el contexto que ya tienes creado
+import { CartContext } from '../../auth/Hooks/CartContext'; 
 
 const pages = [
   { name: 'Inicio', path: '/' },
@@ -20,12 +24,13 @@ const pages = [
 ];
 
 const settings = [
-  { name: 'Mi Perfil', path: '/myaccount' },
-  { name: 'Mis Pedidos', path: '/orders' },
-  { name: 'Cerrar Sesión', path: '/logout' }
+  { name: 'Mi Perfil', path: '/myaccount' }
 ];
 
 const Header = () => {
+  // 3. Extraemos 'carrito' y 'favoritos' del contexto global
+  const { carrito, favoritos } = useContext(CartContext);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -104,7 +109,6 @@ const Header = () => {
               fullWidth
               size="small" 
               placeholder="Busca tu waifu o manga..." 
-              aria-label="Buscar productos"
               sx={{ 
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '50px',
@@ -126,45 +130,56 @@ const Header = () => {
           {/* --- ICONOS DE ACCIÓN --- */}
           <Stack direction="row" spacing={{ xs: 0.5, sm: 1.5 }} alignItems="center">
             
+            {/* FAVORITOS DINÁMICO */}
             <Tooltip title="Favoritos">
               <IconButton 
                 component={NavLink} 
                 to="/myfavourites" 
-                aria-label="Ver mis favoritos"
                 sx={{ color: '#D32F2F', display: { xs: 'none', sm: 'flex' } }}
               >
-                <FavoriteIcon />
+                <Badge badgeContent={favoritos.length} color="error">
+                  <FavoriteIcon />
+                </Badge>
               </IconButton>
             </Tooltip>
 
+            {/* CARRITO DINÁMICO (Aquí está el incremento) */}
             <Tooltip title="Carrito">
               <IconButton 
                 component={NavLink} 
                 to="/mybuys" 
-                aria-label="Ver carrito de compras"
                 sx={{ color: '#1a1a1a' }}
               >
-                <Badge badgeContent={2} sx={{ '& .MuiBadge-badge': { backgroundColor: '#D32F2F', color: 'white' } }}>
+                {/* 4. Usamos carrito.length para el contador real */}
+                <Badge 
+                  badgeContent={carrito.length} 
+                  showZero={false} // No muestra el círculo si está en 0
+                  sx={{ 
+                    '& .MuiBadge-badge': { 
+                      backgroundColor: '#D32F2F', 
+                      color: 'white',
+                      fontWeight: 'bold'
+                    } 
+                  }}
+                >
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
             </Tooltip>
 
-            {/* --- SECCIÓN DE CUENTA (ICONO REEMPLAZADO) --- */}
+            {/* CUENTA */}
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Opciones de cuenta">
                 <IconButton 
                   onClick={handleOpenUserMenu} 
-                  aria-label="Abrir menú de usuario" 
                   sx={{ 
                     p: 0, 
                     ml: 1, 
-                    color: '#D32F2F', // Color rojo AnimeSekai
+                    color: '#D32F2F', 
                     transition: '0.3s',
                     '&:hover': { transform: 'scale(1.1)' }
                   }}
                 >
-                  {/* Cambio de Avatar por AccountCircleIcon */}
                   <AccountCircleIcon sx={{ fontSize: { xs: 35, md: 40 } }} /> 
                 </IconButton>
               </Tooltip>
@@ -187,14 +202,14 @@ const Header = () => {
 
             {/* MENÚ MÓVIL */}
             <Box sx={{ display: { xs: 'flex', lg: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="Abrir menú de navegación"
-                onClick={handleOpenNavMenu}
-                sx={{ color: '#D32F2F' }}
-              >
-                <MenuIcon />
-              </IconButton>
+  <IconButton
+    size="large"
+    aria-label="abrir menú de navegación" // <--- AGREGA ESTO
+    onClick={handleOpenNavMenu}
+    sx={{ color: '#D32F2F' }}
+  >
+    <MenuIcon />
+  </IconButton>
               <Menu
                 anchorEl={anchorElNav}
                 open={Boolean(anchorElNav)}
