@@ -79,6 +79,21 @@ const Content = () => {
         <Typography variant="h2" textAlign="center" sx={{ mb: 6, fontWeight: 900, fontSize: '2.5rem' }}>
           Novedades del Multiverso
         </Typography>
+        <Typography textAlign="center" sx={{ mb: 6 }}>
+          <a 
+            href="https://github.com/lkarimex27-dotcom/t3-shopAnime" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              color: '#D32F2F', 
+              fontWeight: 700, 
+              fontSize: '1.25rem', 
+              textDecoration: 'none' 
+            }}
+          >
+            Visita mi perfil de GitHub
+          </a>
+        </Typography>
         
         <Grid container spacing={4}>
           {products.map((item) => {
